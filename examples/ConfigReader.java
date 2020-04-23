@@ -12,6 +12,7 @@ public class Main {
         }catch(Exception e){
             System.out.println("Error");;
         }
+        assert c != null;
         System.out.println(c.getProperty("SCRIPT_START_TIME"));
     }
 }
