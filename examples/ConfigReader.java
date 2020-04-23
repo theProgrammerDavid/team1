@@ -1,13 +1,12 @@
-package sdd.team1;
 import sdd.team1.david.util.ConfigReader;
 
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        // write your code here
         //System.out.println("Hello word");
         ConfigReader c = null;
-        
+
         try {
             c = new ConfigReader("config.properties");
         }catch(Exception e){
