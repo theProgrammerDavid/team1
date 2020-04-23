@@ -2,7 +2,7 @@
 ### Java template
 # Compiled class file
 *.class
-
+.idea/uiDesigner.xml
 # Log file
 *.log
 
