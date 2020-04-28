@@ -1,6 +1,5 @@
 package sdd.team1.david.util;
 
-
 import java.util.*;
 import java.io.*;
 
@@ -12,7 +11,6 @@ public class ConfigReader {
     public ConfigReader(String filePath) throws IOException {
         p = new Properties();
         /*
-
           Note: We are using a relative path here. If the debug and deployment machines
           are *nix, we can use `$(pwd)/config.properties` instead. However this will
           not work on windows
