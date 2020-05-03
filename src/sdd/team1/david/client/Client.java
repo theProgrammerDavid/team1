@@ -16,20 +16,26 @@ public class Client {
     private String address;
     private int port;
 
+    private void CreateDump() throws IOException {
+
+    }
+
+
     private void  TransferData(){
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+c.getProperty("DATABASE_NAME"),c.getProperty("USERNAME"),c.getProperty("PASSWORD"));
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+c.getProperty("DATABASE_NAME"),c.getProperty("USERNAME"),c.getProperty("PASSWORD"));
+//        } catch (ClassNotFoundException | SQLException e) {
+//            e.printStackTrace();
+//        }
+
     }
 
 
     public void startListening() throws IOException{
         while(true) {
             try{
-                socket = new Socket(this.address, this.port);
+                this.socket = new Socket(this.address, this.port);
                 TransferData();
             }
             catch(UnknownHostException u){
