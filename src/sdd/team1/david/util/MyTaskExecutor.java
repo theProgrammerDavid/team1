@@ -13,7 +13,10 @@ public class MyTaskExecutor
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
     MyTask myTask;
     private boolean alreadyExecuted;
-    volatile boolean isStopIssued;
+
+    public void cleanup(){
+        this.alreadyExecuted=false;
+    }
 
     public MyTaskExecutor(MyTask myTask$)
     {
