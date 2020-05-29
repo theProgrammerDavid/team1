@@ -2,20 +2,32 @@ package sdd.team1;
 import sdd.team1.david.server.Server;
 import  sdd.team1.david.client.Client;
 import sdd.team1.david.util.*;
+
 import java.sql.*;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.Calendar;
-
+class task implements MyTask{
+    private boolean once=false;
+    public void execute(){
+        if(!once){
+            System.out.println("Hello World");
+            once=true;
+        }
+    }
+}
 public class Main {
 
     public static void main(String[] args) {
         try{
-//
-            Calendar rightNow = Calendar.getInstance();
-            int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-            System.out.println(hour);
+  task t = new task();
+  MyTaskExecutor te = new MyTaskExecutor(t);
+  te.startExecutionAt(16,45,30);
+  te.stop();
+//            Calendar rightNow = Calendar.getInstance();
+//            int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+//            System.out.println(hour);
 //
 //            Class.forName("com.mysql.jdbc.Driver");
 //            Connection con=DriverManager.getConnection(
