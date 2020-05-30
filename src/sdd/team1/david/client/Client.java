@@ -5,50 +5,29 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
-
 public class Client {
 
-    private Socket socket = null;
-    private DataInputStream input = null;
-    private DataOutputStream output = null;
-    private ConfigReader c;
-    private Connection con;
-    private String address;
-    private int port;
+    public void sendStuff() throws IOException {
+        // need host and port, we want to connect to the ServerSocket at port 7777
+        Socket socket = new Socket("localhost", 7777);
+        System.out.println("Connected!");
 
-    private void CreateDump() throws IOException {
+        // get the output stream from the socket.
+        OutputStream outputStream = socket.getOutputStream();
+        // create an object output stream from the output stream so we can send an object through it
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
-    }
+        // make a bunch of messages to send.
+        List<Message> messages = new ArrayList<>();
+        messages.add(new Message("Hello from the other side!"));
+        messages.add(new Message("How are you doing?"));
+        messages.add(new Message("What time is it?"));
+        messages.add(new Message("Hi hi hi hi."));
 
+        System.out.println("Sending messages to the ServerSocket");
+        objectOutputStream.writeObject(messages);
 
-    private void  TransferData(){
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+c.getProperty("DATABASE_NAME"),c.getProperty("USERNAME"),c.getProperty("PASSWORD"));
-//        } catch (ClassNotFoundException | SQLException e) {
-//            e.printStackTrace();
-//        }
-
-    }
-
-
-    public void startListening() throws IOException{
-        while(true) {
-            try{
-                this.socket = new Socket(this.address, this.port);
-                TransferData();
-            }
-            catch(UnknownHostException u){
-                System.out.println("\nSystem could not find the computer with the IP address specified\n");
-            }
-            finally {
-                socket.close();
-
-            }
-        }
-    }
-
-    public Client() throws IOException {
-        c = new ConfigReader("client1.properties");
+        System.out.println("Closing socket and terminating program.");
+        socket.close();
     }
 }
