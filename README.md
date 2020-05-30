@@ -16,6 +16,6 @@ JARs should be placed in ``${PROJECT_ROOT}/ext/`` added to ``CLASSPATH`` while e
 * [Java MySQL Driver](https://static.javatpoint.com/src/jdbc/mysql-connector.jar)
 
 ## Work Model 
-The server ```sdd.team1.david.server.Server``` queries the clients ```sdd.team1.david.client.Client``` once per day at a pre-determined time of the day.
+The client ```sdd.team1.david.client.Client``` queries the servers ```sdd.team1.david.server.Server``` once per day at a pre-determined time of the day.
 
-The client then replies back with the requested data.
+The server then replies back with the requested data.
