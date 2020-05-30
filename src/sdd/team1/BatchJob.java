@@ -1,42 +1,39 @@
 package sdd.team1;
-
+import sdd.team1.david.util.MyTask;
+import sdd.team1.david.util.MyTaskExecutor;
 public class BatchJob {
+    private MyTaskExecutor te;
 
-    /**
-     * Denotes the hour (24h clock) when the batch job executes
-     */
-    private  byte startTime;
 
+    private int h,m,s;
 
     public BatchJob(){
+        te=null;
 
+
+        this.h=0;
+        this.m=0;
+        this.s=0;
     }
 
-    /**
-     * Parameterized Constructor
-     * @param startTime Denotes the hour of the day (24h clock format) at which the batch job starts
-     *
-     */
-    public BatchJob(byte startTime){
-    this.startTime=startTime;
+    public BatchJob(int hour,int min, int second, MyTask task){
+        this.h=hour;
+        this.m=min;
+        this.s=second;
+
+        te = new MyTaskExecutor(task);
     }
 
-    /**
-     * Queries the server if any unprocessed data exists. This could arise out of an exception or loss of power or networking
-     */
-    public void processOld(){
-//DateTime dt = new DateTime();
+    public void startJob(){
+        while(true){
+          try{
+              te.startExecutionAt(this.h,this.m,this.s);
+              te.stop();
+              System.out.println("stuff");
+          }
+          catch(Exception e){
+
+          }
+        }
     }
-
-
-    /**
-     * Function to set the start time
-     * @param startTime Denotes the hour of the day (24h clock format) at which the batch job starts
-     *
-     */
-    public void startJobAt(byte startTime){
-    this.startTime=startTime;
-    }
-
-
 }
