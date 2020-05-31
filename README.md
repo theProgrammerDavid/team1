@@ -13,9 +13,13 @@
 ### Dependencies 
 JARs should be placed in ``${PROJECT_ROOT}/ext/`` added to ``CLASSPATH`` while executing.
 
+Java version 11
+
 * [Java MySQL Driver](https://static.javatpoint.com/src/jdbc/mysql-connector.jar)
 
 ## Work Model 
 The client ```sdd.team1.david.client.Client``` queries the servers ```sdd.team1.david.server.Server``` once per day at a pre-determined time of the day.
+
+The server contains a script file ```dbdump.sh``` . It must be configured with the name of the database to be synced.
 
 The server then replies back with the requested data.
