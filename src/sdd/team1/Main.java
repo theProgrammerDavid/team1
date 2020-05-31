@@ -1,4 +1,5 @@
 package sdd.team1;
+
 import sdd.team1.david.server.Server;
 import sdd.team1.david.client.Client;
 
@@ -8,17 +9,17 @@ public class Main {
 
 
     public static void main(String[] args) {
-        try{
+        try {
 //            Runtime.getRuntime().exec("/usr/bin/mysqldump --databases SDD_PROJECT --user=sddproject --password=password > ~/Development/java-test/lol.sql");
 //            Runtime.getRuntime().exec("mysqldump -u sddproject -p password SDD_PROJECT > ~/Development/java-test/dump.sql");
 //Client c = new Client();
 //c.sendStuff();
 //Server s = new Server();
 //s.start();
-Server s = new Server();
-s.createDump();
+            Server s = new Server();
+            s.createDump();
 
-  //  MyTaskExecutor te = new MyTaskExecutor(t);
+            //  MyTaskExecutor te = new MyTaskExecutor(t);
 //  te.startExecutionAt(16,45,30);
 //  te.stop();
 //            Calendar rightNow = Calendar.getInstance();
@@ -34,8 +35,10 @@ s.createDump();
 //            while(rs.next())
 //                System.out.println(rs.getString(1)+"  "+rs.getInt(2));
 //            con.close();
-           // Runtime.getRuntime().exec("mysqldump -u sddproject -p password SDD_PROJECT > dump.sql");
-        }catch(Exception e){ System.out.println(e);}
+            // Runtime.getRuntime().exec("mysqldump -u sddproject -p password SDD_PROJECT > dump.sql");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
 
