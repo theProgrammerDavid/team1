@@ -13,7 +13,7 @@ public class Server {
            ProcessBuilder pb = new ProcessBuilder();
            pb.command("bash","/home/david/Development/java-test/src/sdd/team1/david/util/dbdump.sh",System.getProperty("user.dir"));
            pb.directory(new File("/bin"));
-           pb.redirectOutput(new File("./log"));
+           pb.redirectOutput(new File("./log.txt"));
            pb.redirectErrorStream(true);
            Process p = pb.start();
        }
