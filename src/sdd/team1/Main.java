@@ -2,17 +2,21 @@ package sdd.team1;
 import sdd.team1.david.server.Server;
 import sdd.team1.david.client.Client;
 
+import java.io.File;
+
 public class Main {
 
 
     public static void main(String[] args) {
         try{
-
-Client c = new Client();
-c.sendStuff();
+//            Runtime.getRuntime().exec("/usr/bin/mysqldump --databases SDD_PROJECT --user=sddproject --password=password > ~/Development/java-test/lol.sql");
+//            Runtime.getRuntime().exec("mysqldump -u sddproject -p password SDD_PROJECT > ~/Development/java-test/dump.sql");
+//Client c = new Client();
+//c.sendStuff();
 //Server s = new Server();
 //s.start();
-
+Server s = new Server();
+s.createDump();
 
   //  MyTaskExecutor te = new MyTaskExecutor(t);
 //  te.startExecutionAt(16,45,30);
@@ -31,10 +35,7 @@ c.sendStuff();
 //                System.out.println(rs.getString(1)+"  "+rs.getInt(2));
 //            con.close();
            // Runtime.getRuntime().exec("mysqldump -u sddproject -p password SDD_PROJECT > dump.sql");
-//            Process p;
-//            p = Runtime.getRuntime().exec(new String[]{
-//                   "mysqldump -u sddproject -p password SDD_PROJECT > dump.sql"
-//            });
+
         }catch(Exception e){ System.out.println(e);}
     }
 
