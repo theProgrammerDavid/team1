@@ -12,12 +12,15 @@ public class Main {
         try {
 //            Runtime.getRuntime().exec("/usr/bin/mysqldump --databases SDD_PROJECT --user=sddproject --password=password > ~/Development/java-test/lol.sql");
 //            Runtime.getRuntime().exec("mysqldump -u sddproject -p password SDD_PROJECT > ~/Development/java-test/dump.sql");
-//Client c = new Client();
-//c.sendStuff();
-//Server s = new Server();
-//s.start();
-            Server s = new Server();
-            s.createDump();
+
+//
+            Client c = new Client();
+            c.receiveFile("localhost", 7777);
+
+//            Server s = new Server();
+//            s.createDump();
+//            s.start();
+
 
             //  MyTaskExecutor te = new MyTaskExecutor(t);
 //  te.startExecutionAt(16,45,30);
