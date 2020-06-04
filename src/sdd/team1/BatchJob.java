@@ -29,7 +29,7 @@ public class BatchJob {
           try{
               te.startExecutionAt(this.h,this.m,this.s);
               te.stop();
-              System.out.println("stuff");
+//              System.out.println("stuff");
           }
           catch(Exception e){
 
