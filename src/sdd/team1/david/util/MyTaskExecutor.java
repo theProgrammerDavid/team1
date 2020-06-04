@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MyTaskExecutor
 {
-    ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+    ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
     MyTask myTask;
     private boolean alreadyExecuted;
 
@@ -26,18 +26,12 @@ public class MyTaskExecutor
 
     public void startExecutionAt(int targetHour, int targetMin, int targetSec)
     {
-        Runnable taskWrapper = new Runnable(){
-
-            @Override
-            public void run()
-            {
-                if(!alreadyExecuted){
-                    myTask.execute();
-                    alreadyExecuted=true;
-                }
-                startExecutionAt(targetHour, targetMin, targetSec);
+        Runnable taskWrapper = () -> {
+            if(!alreadyExecuted){
+                myTask.execute();
+                alreadyExecuted=true;
             }
-
+            startExecutionAt(targetHour, targetMin, targetSec);
         };
         long delay = computeNextDelay(targetHour, targetMin, targetSec);
         executorService.schedule(taskWrapper, delay, TimeUnit.SECONDS);
@@ -60,6 +54,7 @@ public class MyTaskExecutor
     public void stop()
     {
         executorService.shutdown();
+        cleanup();
         try {
             executorService.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException ex) {
