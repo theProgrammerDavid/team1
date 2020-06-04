@@ -4,35 +4,44 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import sdd.team1.david.util.Database;
 import sdd.team1.david.util.Message;
 
+import javax.xml.crypto.Data;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class Server {
     private String pwd;
 
     public Server() {
-        pwd = System.getProperty("user.dir");
+        pwd = "/home/david/Development/java-test";
     }
 
+    /**
+     *
+     */
     public void createDump() {
         try {
-
+            File oldFile = new File(this.pwd + "/dump.sql");
+            if (oldFile.exists()) {
+                oldFile.delete();
+            }
             ProcessBuilder pb = new ProcessBuilder();
-            pb.command("bash", this.pwd + "/src/sdd/team1/david/util/dbdump.sh", System.getProperty("user.dir"));
+            pb.command("bash", this.pwd + "/src/sdd/team1/david/util/dbdump.sh", this.pwd);
             pb.directory(new File("/bin"));
             pb.redirectOutput(new File("./log.txt"));
             pb.redirectErrorStream(true);
             pb.redirectError(new File("./errorFile"));
             Process p = pb.start();
             p.waitFor();
-        } catch (IOException e) {
-            File oldFile = new File(this.pwd + "/dump.sql");
-            if (oldFile.exists()) {
-                oldFile.delete();
+            if (p.exitValue() == 0) {
+                System.out.println("Dumped sql");
             }
+        } catch (IOException e) {
+
         } catch (InterruptedException ie) {
             //TODO
         }
@@ -50,11 +59,22 @@ public class Server {
         String res;
 
         try {
-            File errorLogFile = new File(this.pwd + "./transferError.sql");
+            File errorLogFile = new File(this.pwd + "/transferError.sql");
             if (errorLogFile.exists()) {
+                //if transferError file exists, send that file
                 res = Files.readString(errorLogFile.toPath(), StandardCharsets.US_ASCII);
             } else {
-                res = "null";
+                //if transferError file does not exist, create the dump
+                createDump();
+                File dumpFile = new File(this.pwd + "/dump.sql");
+                if (dumpFile.exists()) {
+                    System.out.println("dump file exists");
+                    res = Files.readString(dumpFile.toPath(), StandardCharsets.US_ASCII);
+                    System.out.println(res);
+                } else {
+                    System.out.println("NO dump file exists");
+                    res = "null";
+                }
             }
 
         } catch (IOException e) {
@@ -68,6 +88,15 @@ public class Server {
         File oldFile = new File(this.pwd + "./dump.sql");
         File newFile = new File(this.pwd + "./transferError.sql");
         oldFile.renameTo(newFile);
+    }
+
+    private void mysqlImport() {
+        try {
+// mysqldump --databases SDD_PROJECT --user=sddproject --password=password < file.sql
+            new Database().MysqlRestore("sddproject", "password", "SDD_PROJECT", this.pwd + "/transfer.sql");
+        } catch (Exception e) {
+
+        }
     }
 
     public void start() {
@@ -98,9 +127,17 @@ public class Server {
 
                 String res = checkForOld();
                 objectOutputStream.writeObject(res);
-            } else {
+                String status = (String) objectInputStream.readObject();
+                if (!status.equals("ok")) {
+                    //TODO: log error
+                    System.out.println("Some error");
+                }
+            } else if (x.equals("receive")) {
                 //the client wants us to receive a file
-                String res = (String)objectInputStream.readObject();
+                String res = (String) objectInputStream.readObject();
+                Files.write(Paths.get(this.pwd + "/clientReceived.dump"), res.getBytes());
+                System.out.println("data is: " + res);
+                mysqlImport();
             }
 
 

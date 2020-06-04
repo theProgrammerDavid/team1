@@ -1,6 +1,7 @@
 package sdd.team1.david.util;
 
 import java.io.IOException;
+
 import sdd.team1.david.util.Logger;
 
 /**
@@ -8,19 +9,19 @@ import sdd.team1.david.util.Logger;
  * Requirements: mysql environment variables to be configured properly
  */
 public class Database {
-    public static void MysqlDump(String username, String password, String databaseName, String outputFile ){
+    public void MysqlDump(String username, String password, String databaseName, String outputFile) {
         try {
 
             /*NOTE: Used to create a cmd command*/
-            String executeCmd = "mysqldump -u"+username +" -p" + password + " "+databaseName+" -r " + outputFile;
+            String executeCmd = "mysqldump -u" + username + " -p" + password + " " + databaseName + " -r " + outputFile;
 
             /*NOTE: Executing the command here*/
             Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
             int processComplete = runtimeProcess.waitFor();
 
             /*NOTE: processComplete=0 if correctly executed, will contain other values if not
-            * This will also be logged
-            * */
+             * This will also be logged
+             * */
 
             if (processComplete == 0) {
                 System.out.println("Dump Complete");
@@ -32,11 +33,12 @@ public class Database {
             //Add Exception to Logger
         }
     }
-    public static void MysqlRestore(String username, String password, String databaseName, String outputFile ){
+
+    public void MysqlRestore(String username, String password, String databaseName, String outputFile) {
         try {
 
             /*NOTE: Used to create a cmd command*/
-            String executeCmd = "mysqldump -u"+username +" -p" + password + " "+databaseName+" < " + outputFile;
+            String executeCmd = "mysqldump -u" + username + " -p" + password + " " + databaseName + " < " + outputFile;
 
             /*NOTE: Executing the command here*/
             Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
